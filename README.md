@@ -4,6 +4,22 @@
 
 Built for the **Google Solution Challenge 2026**.
 
+🎥 **[Demo Video](https://youtu.be/oIVx235czr8)**
+
+---
+
+## 🌍 UN Sustainable Development Goal
+
+<table>
+<tr>
+<td width="80">🏭</td>
+<td>
+<strong>SDG 9 — Industry, Innovation & Infrastructure</strong><br>
+FlowSync Pro builds resilient logistics infrastructure by digitizing fragmented shipment coordination. It replaces manual phone/WhatsApp-based tracking with a real-time, multi-party platform — reducing delays, improving transporter accountability, and enabling data-driven dispatch decisions for more efficient supply chains.
+</td>
+</tr>
+</table>
+
 ---
 
 ## 🎯 Problem Statement
@@ -214,11 +230,13 @@ See `backend/.env.example` for required backend configuration:
 
 | Technology              | Usage in FlowSync Pro                                     |
 | ----------------------- | --------------------------------------------------------- |
-| **Firebase Auth**       | User authentication with email/password and Google SSO    |
-| **Firebase Analytics**  | In-app usage tracking and event logging                   |
-| **Google Sign-In**      | One-tap authentication for mobile users                   |
-| **Firebase**            | App configuration, analytics, and auth services           |
-| **Azure App Service**   | Backend API hosting (`flowsyncpro-final.azurewebsites.net`) |
+| **Firebase Auth**       | Secure user authentication with email/password and Google SSO |
+| **Firebase Analytics**  | In-app usage tracking, event logging, and user behavior insights |
+| **Google Sign-In**      | One-tap authentication for seamless mobile onboarding     |
+| **Firebase Realtime Config** | App configuration and Firebase project initialization |
+| **Supabase (PostgreSQL)** | Cloud-hosted database with edge functions              |
+
+> **Backend hosting**: Azure App Service (`flowsyncpro-final.azurewebsites.net`)
 
 ---
 
