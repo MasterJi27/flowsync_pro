@@ -88,7 +88,7 @@ In traditional logistics, shipment coordination between **brokers**, **transport
 | **Auth**     | Firebase Authentication + Google Sign-In                    |
 | **Realtime** | Socket.IO (WebSocket) + polling fallback                    |
 | **Analytics**| Firebase Analytics                                          |
-| **Hosting**  | Azure App Service (backend) + Firebase (frontend)           |
+| **Hosting**  | Azure App Service (backend) + Firebase (frontend config)    |
 
 ---
 
@@ -217,8 +217,8 @@ See `backend/.env.example` for required backend configuration:
 | **Firebase Auth**       | User authentication with email/password and Google SSO    |
 | **Firebase Analytics**  | In-app usage tracking and event logging                   |
 | **Google Sign-In**      | One-tap authentication for mobile users                   |
-| **Firebase (Hosting)**  | Frontend deployment and configuration                     |
-| **Google Cloud**        | Backend infrastructure and services                       |
+| **Firebase**            | App configuration, analytics, and auth services           |
+| **Azure App Service**   | Backend API hosting (`flowsyncpro-final.azurewebsites.net`) |
 
 ---
 
