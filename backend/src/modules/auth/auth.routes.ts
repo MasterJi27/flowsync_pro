@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validate } from '../../middleware/validate';
-import { register, login, firebaseLogin, inviteAccess, logout, refreshToken, getCurrentUser } from './auth.controller.enhanced';
+import { register, login, firebaseLogin, inviteAccess, logout, refreshToken, getCurrentUser } from './auth.controller';
 import { firebaseLoginSchema, inviteAccessSchema, loginSchema, registerSchema } from './auth.validation';
 
 export const authRoutes = Router();

@@ -10,7 +10,7 @@
 
 If you discover a security vulnerability in FlowSync Pro, please report it responsibly:
 
-1. **Email**: [raghu27kathuria@gmail.com](mailto:raghu27kathuria@gmail.com)
+1. **Email**: [RaghavKathuria@devflow.me](mailto:RaghavKathuria@devflow.me)
 2. **Do NOT** open a public GitHub issue for security vulnerabilities
 
 ### What to include

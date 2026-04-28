@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../../features/analytics/presentation/analytics_screen.dart';
 import '../../features/auth/presentation/auth_controller.dart';
 import '../../features/auth/presentation/forgot_password_screen.dart';
-import '../../features/auth/presentation/login_screen_redesigned.dart';
+import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/profile_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
-import '../../features/dashboard/presentation/dashboard_screen_redesigned.dart';
+import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/shipments/presentation/shipment_detail_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -33,7 +33,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreenRedesigned(),
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: '/forgot-password',
@@ -41,7 +41,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/dashboard',
-        builder: (context, state) => const DashboardScreenRedesigned(),
+        builder: (context, state) => const DashboardScreen(),
       ),
       GoRoute(
         path: '/analytics',

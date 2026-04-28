@@ -8,8 +8,8 @@ import '../../../shared/widgets/glass_card.dart';
 import '../../auth/presentation/auth_controller.dart';
 import '../../shipments/presentation/shipment_controllers.dart';
 
-class DashboardScreenRedesigned extends ConsumerWidget {
-  const DashboardScreenRedesigned({super.key});
+class DashboardScreen extends ConsumerWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
