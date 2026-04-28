@@ -1,0 +1,5 @@
+# Created manually because Supabase CLI binaries are blocked by local application control policy.
+project_id = "slotoylryvbujmtesswt"
+
+[functions.api]
+verify_jwt = false

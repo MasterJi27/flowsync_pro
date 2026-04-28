@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "881175746642",
+    "project_id": "flowsync-1c1d8",
+    "storage_bucket": "flowsync-1c1d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881175746642:android:c4f131d3f4c5067abda78b",
+        "android_client_info": {
+          "package_name": "com.flowsync.in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881175746642-cam21k67reac0fbq2n7q5fvkg9i00ltu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flowsync.in",
+            "certificate_hash": "f0a334381c56b67b321007796c586a9f0c4c26ef"
+          }
+        },
+        {
+          "client_id": "881175746642-1ae42aot5ln1upsonf0ht6fb98bkmg47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM4ePOv2gz3_gFcHODBrc9onVECpzytoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881175746642-1ae42aot5ln1upsonf0ht6fb98bkmg47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

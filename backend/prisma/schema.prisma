@@ -1,0 +1,318 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GlobalRole {
+  BROKER
+  CLIENT
+  TRANSPORTER
+  AUTHORITY
+  ADMIN
+}
+
+enum ParticipantRole {
+  BROKER
+  CLIENT
+  TRANSPORTER
+  AUTHORITY
+}
+
+enum TransportType {
+  ROAD
+  AIR
+  SEA
+  RAIL
+  MULTIMODAL
+}
+
+enum ShipmentStatus {
+  PLANNED
+  IN_TRANSIT
+  NEEDS_CONFIRMATION
+  ESCALATED
+  DELAYED
+  COMPLETED
+  CANCELLED
+}
+
+enum PriorityLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ParticipantInviteStatus {
+  PENDING
+  JOINED
+  EXPIRED
+  REVOKED
+}
+
+enum StepStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  NEEDS_CONFIRMATION
+  ESCALATED
+  BLOCKED
+}
+
+enum UpdateSource {
+  BROKER
+  TRANSPORTER
+  AUTHORITY
+  SYSTEM
+  API
+}
+
+enum EscalationStatus {
+  NONE
+  NEEDS_CONFIRMATION
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum LogAction {
+  SHIPMENT_CREATED
+  SHIPMENT_UPDATED
+  SHIPMENT_DELETED
+  PARTICIPANT_ADDED
+  PARTICIPANT_INVITED
+  PARTICIPANT_JOINED
+  STEP_CREATED
+  STEP_UPDATED
+  STATUS_OVERRIDE
+  ESCALATION_TRIGGERED
+  ESCALATION_ADVANCED
+  FIRST_CONFIRMATION
+}
+
+enum SourceType {
+  USER
+  INVITE
+  SYSTEM
+  API
+}
+
+enum EscalationAttemptStatus {
+  PENDING
+  NOTIFIED
+  RESPONDED
+  SKIPPED
+  EXPIRED
+}
+
+model User {
+  id                String                @id @default(uuid())
+  name              String
+  phone             String                @unique
+  email             String                @unique
+  passwordHash      String                @map("password_hash")
+  globalRole        GlobalRole            @map("global_role")
+  createdAt         DateTime              @default(now()) @map("created_at")
+  updatedAt         DateTime              @updatedAt @map("updated_at")
+
+  createdShipments  Shipment[]            @relation("ShipmentCreator")
+  participantLinks  ShipmentParticipant[]
+  updatedSteps      ShipmentStep[]         @relation("StepUpdater")
+  performedLogs     ShipmentLog[]          @relation("LogPerformer")
+  contacts          Contact[]
+
+  @@index([globalRole])
+  @@map("users")
+}
+
+model Shipment {
+  id                String                @id @default(uuid())
+  referenceNumber   String                @unique @map("reference_number")
+  origin            String
+  destination       String
+  transportType     TransportType         @map("transport_type")
+  currentStatus     ShipmentStatus        @default(PLANNED) @map("current_status")
+  currentStepId     String?               @unique @map("current_step_id")
+  priorityLevel     PriorityLevel         @default(MEDIUM) @map("priority_level")
+  createdBy         String                @map("created_by")
+  createdAt         DateTime              @default(now()) @map("created_at")
+  updatedAt         DateTime              @updatedAt @map("updated_at")
+
+  creator           User                  @relation("ShipmentCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  currentStep       ShipmentStep?         @relation("CurrentStep", fields: [currentStepId], references: [id], onDelete: SetNull)
+  steps             ShipmentStep[]        @relation("ShipmentSteps")
+  participants      ShipmentParticipant[]
+  logs              ShipmentLog[]
+  contacts          Contact[]
+  escalationAttempts EscalationAttempt[]
+  transportAssignment TransportAssignment?
+
+  @@index([currentStatus])
+  @@index([priorityLevel])
+  @@index([createdBy])
+  @@index([origin, destination])
+  @@map("shipments")
+}
+
+model ShipmentParticipant {
+  id                String                  @id @default(uuid())
+  shipmentId        String                  @map("shipment_id")
+  userId            String?                 @map("user_id")
+  participantRole   ParticipantRole         @map("participant_role")
+  permissions       Json
+  inviteToken       String?                 @unique @map("invite_token")
+  invitePhone       String?                 @map("invite_phone")
+  inviteStatus      ParticipantInviteStatus @default(PENDING) @map("invite_status")
+  inviteExpiresAt   DateTime?               @map("invite_expires_at")
+  joinedAt          DateTime?               @map("joined_at")
+  reliabilityScore  Decimal                 @default(50.00) @db.Decimal(5, 2) @map("reliability_score")
+  responseRate      Decimal                 @default(0.00) @db.Decimal(5, 2) @map("response_rate")
+  lastActivityAt    DateTime?               @map("last_activity_at")
+  createdAt         DateTime                @default(now()) @map("created_at")
+
+  shipment          Shipment                @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  user              User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  escalationAttempts EscalationAttempt[]
+  transportAssignments TransportAssignment[]
+
+  @@unique([shipmentId, userId, participantRole])
+  @@index([shipmentId, participantRole])
+  @@index([userId])
+  @@index([invitePhone])
+  @@index([inviteStatus])
+  @@map("shipment_participants")
+}
+
+model ShipmentStep {
+  id                String              @id @default(uuid())
+  shipmentId        String              @map("shipment_id")
+  stepName          String              @map("step_name")
+  sequenceOrder     Int                 @map("sequence_order")
+  expectedTime      DateTime            @map("expected_time")
+  actualTime        DateTime?           @map("actual_time")
+  status            StepStatus          @default(PENDING)
+  updatedBy         String?             @map("updated_by")
+  confidenceScore   Int                 @default(60) @map("confidence_score")
+  updateSource      UpdateSource        @default(SYSTEM) @map("update_source")
+  escalationStatus  EscalationStatus    @default(NONE) @map("escalation_status")
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+
+  shipment          Shipment            @relation("ShipmentSteps", fields: [shipmentId], references: [id], onDelete: Cascade)
+  currentFor        Shipment?           @relation("CurrentStep")
+  updatedByUser     User?               @relation("StepUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  logs              ShipmentLog[]
+  escalationAttempts EscalationAttempt[]
+
+  @@unique([shipmentId, sequenceOrder])
+  @@index([shipmentId, status])
+  @@index([expectedTime])
+  @@index([escalationStatus])
+  @@map("shipment_steps")
+}
+
+model ShipmentLog {
+  id                  String           @id @default(uuid())
+  shipmentId          String           @map("shipment_id")
+  shipmentStepId      String?          @map("shipment_step_id")
+  performedBy         String?          @map("performed_by")
+  performerRole       ParticipantRole? @map("performer_role")
+  action              LogAction
+  previousStatus      String?          @map("previous_status")
+  newStatus           String?          @map("new_status")
+  notes               String?
+  timestamp           DateTime         @default(now())
+  isFirstConfirmation Boolean          @default(false) @map("is_first_confirmation")
+  sourceType          SourceType       @default(USER) @map("source_type")
+  confidenceScore     Int              @default(60) @map("confidence_score")
+
+  shipment            Shipment         @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  shipmentStep        ShipmentStep?    @relation(fields: [shipmentStepId], references: [id], onDelete: SetNull)
+  performer           User?            @relation("LogPerformer", fields: [performedBy], references: [id], onDelete: SetNull)
+
+  @@index([shipmentId, timestamp])
+  @@index([shipmentStepId])
+  @@index([performedBy])
+  @@index([isFirstConfirmation])
+  @@map("shipment_logs")
+}
+
+model Contact {
+  id                  String      @id @default(uuid())
+  shipmentId          String      @map("shipment_id")
+  userId              String      @map("user_id")
+  priority            Int
+  trustScore          Decimal     @default(50.00) @db.Decimal(5, 2) @map("trust_score")
+  escalationOrder     Int         @map("escalation_order")
+  responseTimeAvg     Int         @default(0) @map("response_time_avg")
+  createdAt           DateTime    @default(now()) @map("created_at")
+
+  shipment            Shipment    @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  escalationAttempts  EscalationAttempt[]
+
+  @@unique([shipmentId, userId])
+  @@index([shipmentId, priority, escalationOrder])
+  @@index([userId])
+  @@map("contacts")
+}
+
+model EscalationAttempt {
+  id                  String                   @id @default(uuid())
+  shipmentId          String                   @map("shipment_id")
+  shipmentStepId      String                   @map("shipment_step_id")
+  contactId           String?                  @map("contact_id")
+  participantId       String?                  @map("participant_id")
+  status              EscalationAttemptStatus  @default(PENDING)
+  notificationChannel String                   @default("socket") @map("notification_channel")
+  sequenceRank        Int                      @map("sequence_rank")
+  notes               String?
+  notifiedAt          DateTime?                @map("notified_at")
+  respondedAt         DateTime?                @map("responded_at")
+  createdAt           DateTime                 @default(now()) @map("created_at")
+
+  shipment            Shipment                 @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  shipmentStep        ShipmentStep             @relation(fields: [shipmentStepId], references: [id], onDelete: Cascade)
+  contact             Contact?                 @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  participant         ShipmentParticipant?     @relation(fields: [participantId], references: [id], onDelete: SetNull)
+
+  @@index([shipmentId, status])
+  @@index([shipmentStepId, status])
+  @@index([participantId])
+  @@map("escalation_attempts")
+}
+
+enum TransportAssignmentStatus {
+  ASSIGNED
+  ENROUTE
+  ARRIVED
+  COMPLETED
+}
+
+model TransportAssignment {
+  id                    String                     @id @default(uuid())
+  shipmentId            String                     @unique @map("shipment_id")
+  transporterId         String?                    @map("transporter_id")
+  truckId               String?                    @map("truck_id")
+  driverName            String?                    @map("driver_name")
+  driverPhone           String?                    @map("driver_phone")
+  dispatchTime          DateTime?                  @map("dispatch_time")
+  expectedArrivalTime   DateTime?                  @map("expected_arrival_time")
+  actualArrivalTime     DateTime?                  @map("actual_arrival_time")
+  status                TransportAssignmentStatus  @default(ASSIGNED)
+  notes                 String?
+  createdAt             DateTime                   @default(now()) @map("created_at")
+  updatedAt             DateTime                   @updatedAt @map("updated_at")
+
+  shipment              Shipment                   @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  transporter           ShipmentParticipant?       @relation(fields: [transporterId], references: [id], onDelete: SetNull)
+
+  @@index([shipmentId, status])
+  @@index([transporterId])
+  @@index([dispatchTime])
+  @@map("transport_assignments")
+}
