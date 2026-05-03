@@ -23,7 +23,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(24),
   JWT_EXPIRES_IN: z.string().default('8h'),
   INVITE_EXPIRES_HOURS: z.coerce.number().default(168),
-  CORS_ORIGIN: z.string().default('*'),
+  CORS_ORIGIN: z.string().default(''),
   TRUST_PROXY: trustProxySchema,
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(120),
@@ -38,7 +38,21 @@ const envSchema = z.object({
 
 export const env = envSchema.parse(process.env);
 
-export const corsOrigins =
-  env.CORS_ORIGIN === '*'
-    ? '*'
-    : env.CORS_ORIGIN.split(',').map((origin) => origin.trim());
+const configuredOrigins = env.CORS_ORIGIN.split(',')
+  .map((origin) => origin.trim())
+  .filter((origin) => origin.length > 0);
+
+const validCorsOrigins = configuredOrigins.filter((origin) => {
+  if (origin === '*') {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(origin);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
+});
+
+export const corsOrigins = validCorsOrigins.length > 0 ? validCorsOrigins : false;
