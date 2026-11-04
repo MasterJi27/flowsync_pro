@@ -19,7 +19,7 @@ export const addParticipantSchema = z.object({
   body: z.object({
     userId: z.string().uuid(),
     participantRole: roleSchema,
-    permissions: z.record(z.boolean()).optional()
+    permissions: z.record(z.string(), z.boolean()).optional()
   })
 });
 
@@ -30,6 +30,6 @@ export const inviteTransporterSchema = z.object({
   body: z.object({
     phone: z.string().min(8).max(20),
     expiresInHours: z.number().int().positive().max(720).optional(),
-    permissions: z.record(z.boolean()).optional()
+    permissions: z.record(z.string(), z.boolean()).optional()
   })
 });

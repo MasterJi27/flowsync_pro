@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { AnyZodObject, ZodError } from 'zod';
+import { z, ZodError } from 'zod';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RequestSchema = z.ZodObject<any>;
 import { AppError } from '../shared/errors';
 
 export const validate =
-  (schema: AnyZodObject) => (req: Request, _res: Response, next: NextFunction) => {
+  (schema: RequestSchema) => (req: Request, _res: Response, next: NextFunction) => {
     try {
       const parsed = schema.parse({
         body: req.body,
@@ -11,8 +13,8 @@ export const validate =
         params: req.params
       });
       req.body = parsed.body ?? req.body;
-      req.query = parsed.query ?? req.query;
-      req.params = parsed.params ?? req.params;
+      req.query = (parsed.query ?? req.query) as Request['query'];
+      req.params = (parsed.params ?? req.params) as Request['params'];
       return next();
     } catch (error) {
       if (error instanceof ZodError) {
