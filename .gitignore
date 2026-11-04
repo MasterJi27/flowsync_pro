@@ -17,7 +17,6 @@ frontend/pubspec.lock
 frontend/.metadata
 frontend/build_log.txt
 frontend/devtools_options.yaml
-frontend/package-lock.json
 
 # ── Android build artifacts ───────────────────────────────────────────
 frontend/android/app/build/
@@ -40,8 +39,7 @@ backend/.azure/
 # ── Runtime data ──────────────────────────────────────────────────────
 *.log
 
-# ── Root level ────────────────────────────────────────────────────────
-package-lock.json
+# Note: backend/package-lock.json IS committed for reproducible installs.
 
 # ── Sensitive files (root level only) ─────────────────────────────────
 /google-services.json

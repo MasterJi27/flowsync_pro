@@ -6,6 +6,10 @@ Built for the **Google Solution Challenge 2026**.
 
 🎥 **[Demo Video](https://youtu.be/oIVx235czr8)**
 
+[![CI](https://github.com/MasterJi27/flowsync_pro/actions/workflows/ci.yml/badge.svg)](https://github.com/MasterJi27/flowsync_pro/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/MasterJi27/flowsync_pro/actions/workflows/codeql.yml/badge.svg)](https://github.com/MasterJi27/flowsync_pro/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ---
 
 ## 🌍 UN Sustainable Development Goal
@@ -222,7 +226,7 @@ See `backend/.env.example` for required backend configuration:
 - `DATABASE_URL` — PostgreSQL connection string
 - `JWT_SECRET` — Token signing secret
 - `FIREBASE_*` — Firebase Admin SDK credentials
-- `CORS_ORIGINS` — Allowed frontend origins
+- `CORS_ORIGIN` — Comma-separated list of allowed frontend origins
 
 ---
 
@@ -256,4 +260,4 @@ See `backend/.env.example` for required backend configuration:
 
 ## 📄 License
 
-This project is built for the **Google Solution Challenge 2026**.
+Released under the [MIT License](LICENSE).
