@@ -805,6 +805,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                 return;
               }
 
+              final messenger = ScaffoldMessenger.of(context);
               setModalState(() => sendingCode = true);
               try {
                 final id = await ref
@@ -814,22 +815,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                   verificationId = id;
                   sendingCode = false;
                 });
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('OTP sent successfully.')),
-                  );
-                }
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('OTP sent successfully.')),
+                );
               } catch (error) {
                 setModalState(() => sendingCode = false);
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        error.toString().replaceFirst('Exception: ', ''),
-                      ),
+                messenger.showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      error.toString().replaceFirst('Exception: ', ''),
                     ),
-                  );
-                }
+                  ),
+                );
               }
             }
 
@@ -846,6 +843,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                 return;
               }
 
+              final navigator = Navigator.of(context);
               await ref
                   .read(authControllerProvider.notifier)
                   .verifyPhoneOtpAndLogin(
@@ -860,7 +858,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
 
               final auth = ref.read(authControllerProvider);
               if (auth.isAuthenticated) {
-                Navigator.of(context).pop();
+                navigator.pop();
               }
             }
 
@@ -1165,7 +1163,13 @@ class _QuickRoleChipState extends State<_QuickRoleChip> {
             width: 1.5,
           ),
         ),
-        transform: Matrix4.identity()..scale(_pressed ? 0.95 : 1.0),
+        transform: Matrix4.identity()
+          ..scaleByDouble(
+            _pressed ? 0.95 : 1.0,
+            _pressed ? 0.95 : 1.0,
+            _pressed ? 0.95 : 1.0,
+            1.0,
+          ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

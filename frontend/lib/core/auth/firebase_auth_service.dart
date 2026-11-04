@@ -74,9 +74,6 @@ class FirebaseAuthService {
       );
 
       final googleUser = await GoogleSignIn.instance.authenticate();
-      if (googleUser == null) {
-        throw const GoogleSignInCanceled();
-      }
 
       final googleAuth = googleUser.authentication;
       final idToken = googleAuth.idToken;
@@ -91,7 +88,7 @@ class FirebaseAuthService {
         idToken: idToken,
       );
 
-      return _auth.signInWithCredential(credential);
+      return await _auth.signInWithCredential(credential);
     } on Exception catch (e) {
       if (e is GoogleSignInException) {
         if (e.code == GoogleSignInExceptionCode.canceled) {

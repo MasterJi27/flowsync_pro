@@ -240,7 +240,7 @@ class _SecondaryButtonState extends State<SecondaryButton>
           decoration: BoxDecoration(
             border: Border.all(
               color:
-                  widget.isEnabled ? borderColor : Colors.grey.withOpacity(0.5),
+                  widget.isEnabled ? borderColor : Colors.grey.withValues(alpha: 0.5),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(12),

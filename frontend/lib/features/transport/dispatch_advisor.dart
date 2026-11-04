@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../shared/widgets/app_card.dart';
-import '../../shared/widgets/status_chip.dart';
 
 /// Dispatch advisor card - shows recommendations for dispatch timing
 class DispatchAdvisorCard extends StatelessWidget {
@@ -13,7 +12,7 @@ class DispatchAdvisorCard extends StatelessWidget {
   final VoidCallback? onConfirmStep;
 
   const DispatchAdvisorCard({
-    Key? key,
+    super.key,
     this.message,
     this.riskLevel = 'medium',
     this.currentStepName,
@@ -21,12 +20,11 @@ class DispatchAdvisorCard extends StatelessWidget {
     this.needsConfirmation = false,
     this.recommendedDelayMinutes,
     this.onConfirmStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final shouldShowWarning = needsConfirmation ?? false;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return shouldShowWarning
         ? GradientCardRed(
@@ -77,7 +75,7 @@ class DispatchAdvisorCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
+              color: Colors.white.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -117,7 +115,7 @@ class DispatchAdvisorCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getRiskColor(riskLevel!).withOpacity(0.2),
+                  color: _getRiskColor(riskLevel!).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
                     color: _getRiskColor(riskLevel!),
@@ -137,7 +135,7 @@ class DispatchAdvisorCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF87CEEB).withOpacity(0.2),
+                  color: const Color(0xFF87CEEB).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
                     color: const Color(0xFF87CEEB),
@@ -166,7 +164,7 @@ class DispatchAdvisorCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6DD5B2).withOpacity(0.8),
+                  color: const Color(0xFF6DD5B2).withValues(alpha: 0.8),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: const Color(0xFF6DD5B2),
@@ -214,10 +212,10 @@ class DispatchReadyCard extends StatelessWidget {
   final VoidCallback? onDispatch;
 
   const DispatchReadyCard({
-    Key? key,
+    super.key,
     this.message = '✅ Safe to dispatch - step confirmed',
     this.onDispatch,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +230,7 @@ class DispatchReadyCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6DD5B2).withOpacity(0.2),
+                  color: const Color(0xFF6DD5B2).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:google_sign_in/google_sign_in.dart'; // Needed for GoogleSignInException
 
 import '../../../core/auth/firebase_auth_service.dart';
 import '../../../core/realtime/realtime_service.dart';
@@ -345,34 +344,34 @@ class AuthController extends StateNotifier<AuthState> {
       if (firebaseUser == null) {
         throw Exception('Google sign-in failed to create a user session.');
       }
-      final idToken = await firebaseUser?.getIdToken();
+      final idToken = await firebaseUser.getIdToken();
       if (idToken == null || idToken.isEmpty) {
         throw Exception('Google sign-in succeeded but token exchange failed.');
       }
 
       final result = await _repo.firebaseLogin(
         idToken: idToken,
-        email: firebaseUser?.email,
-        phone: firebaseUser?.phoneNumber,
-        name: firebaseUser?.displayName,
+        email: firebaseUser.email,
+        phone: firebaseUser.phoneNumber,
+        name: firebaseUser.displayName,
       );
       await _persist(result);
 
       final identity = _activityIdentity(
-        firebaseUid: firebaseUser?.uid,
+        firebaseUid: firebaseUser.uid,
         backendUserId: result.user.id,
       );
 
       await _activity.syncProfile(
         firebaseUid: identity,
-        email: _profileEmail(firebaseUser?.email, result.user.email),
+        email: _profileEmail(firebaseUser.email, result.user.email),
         name: result.user.name,
         phone: result.user.phone,
         role: result.user.globalRole,
       );
       await _activity.logLogin(
         firebaseUid: identity,
-        identifier: _profileEmail(firebaseUser?.email, result.user.email),
+        identifier: _profileEmail(firebaseUser.email, result.user.email),
         method: 'firebase_google',
         success: true,
         user: result.user,

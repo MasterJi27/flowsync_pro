@@ -12,13 +12,13 @@ class ShipmentMapScreen extends StatefulWidget {
   final int? currentStepIndex;
 
   const ShipmentMapScreen({
-    Key? key,
+    super.key,
     required this.shipmentId,
     this.origin,
     this.destination,
     this.stepNames = const [],
     this.currentStepIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<ShipmentMapScreen> createState() => _ShipmentMapScreenState();
@@ -95,8 +95,8 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
               borderRadius: BorderRadius.circular(16),
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF87CEEB).withOpacity(0.1),
-                  const Color(0xFF4A90E2).withOpacity(0.05),
+                  const Color(0xFF87CEEB).withValues(alpha: 0.1),
+                  const Color(0xFF4A90E2).withValues(alpha: 0.05),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -116,7 +116,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 8,
                       ),
                     ],
@@ -141,7 +141,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
                         '${route.length} waypoints',
                         style: const TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF666),
+                          color: Color(0x000ff666),
                         ),
                       ),
                     ],
@@ -197,7 +197,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
           decoration: BoxDecoration(
             color: isActive
                 ? const Color(0xFF6DD5B2)
-                : (isStart || isEnd ? const Color(0xFF4A90E2) : const Color(0xFFBBBB)),
+                : (isStart || isEnd ? const Color(0xFF4A90E2) : const Color(0x00ffbbbb)),
             border: Border.all(
               color: Colors.white,
               width: 2,
@@ -205,7 +205,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
             borderRadius: BorderRadius.circular(50),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -266,7 +266,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF999),
+                color: Color(0x000ff999),
               ),
             ),
             const SizedBox(height: 4),
@@ -274,7 +274,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
               'Route preview will show below',
               style: TextStyle(
                 fontSize: 12,
-                color: Color(0xFFAA),
+                color: Color(0x0000ffaa),
               ),
             ),
           ],
@@ -344,7 +344,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
                       child: AppCard(
                         padding: const EdgeInsets.all(12),
                         backgroundColor: isCurrentStep
-                            ? const Color(0xFF6DD5B2).withOpacity(0.1)
+                            ? const Color(0xFF6DD5B2).withValues(alpha: 0.1)
                             : null,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,7 +391,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
                 const SizedBox(height: 12),
               ],
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -455,7 +455,7 @@ class _ShipmentMapScreenState extends State<ShipmentMapScreen> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF87CEEB).withOpacity(0.1),
+                    color: const Color(0xFF87CEEB).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -502,7 +502,7 @@ class _DetailItem extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           label,
-          style: const TextStyle(fontSize: 10, color: Color(0xFF999)),
+          style: const TextStyle(fontSize: 10, color: Color(0x000ff999)),
         ),
         const SizedBox(height: 4),
         Text(

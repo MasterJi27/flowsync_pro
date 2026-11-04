@@ -85,8 +85,8 @@ class GradientCardBlue extends StatelessWidget {
       onTap: onTap,
       gradient: LinearGradient(
         colors: [
-          const Color(0xFF87CEEB).withOpacity(0.2),
-          const Color(0xFF4A90E2).withOpacity(0.1),
+          const Color(0xFF87CEEB).withValues(alpha: 0.2),
+          const Color(0xFF4A90E2).withValues(alpha: 0.1),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -119,8 +119,8 @@ class GradientCardGreen extends StatelessWidget {
       onTap: onTap,
       gradient: LinearGradient(
         colors: [
-          const Color(0xFF98D8C8).withOpacity(0.2),
-          const Color(0xFF6DD5B2).withOpacity(0.1),
+          const Color(0xFF98D8C8).withValues(alpha: 0.2),
+          const Color(0xFF6DD5B2).withValues(alpha: 0.1),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -153,8 +153,8 @@ class GradientCardWarm extends StatelessWidget {
       onTap: onTap,
       gradient: LinearGradient(
         colors: [
-          const Color(0xFFFFB366).withOpacity(0.15),
-          const Color(0xFFFFA366).withOpacity(0.08),
+          const Color(0xFFFFB366).withValues(alpha: 0.15),
+          const Color(0xFFFFA366).withValues(alpha: 0.08),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -187,8 +187,8 @@ class GradientCardRed extends StatelessWidget {
       onTap: onTap,
       gradient: LinearGradient(
         colors: [
-          const Color(0xFFFF6B6B).withOpacity(0.15),
-          const Color(0xFFEE5A52).withOpacity(0.08),
+          const Color(0xFFFF6B6B).withValues(alpha: 0.15),
+          const Color(0xFFEE5A52).withValues(alpha: 0.08),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

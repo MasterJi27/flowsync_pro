@@ -161,7 +161,13 @@ class _DepthButtonState extends State<DepthButton>
             ),
           ],
         ),
-        transform: Matrix4.identity()..scale(_pressed ? 0.97 : 1.0),
+        transform: Matrix4.identity()
+          ..scaleByDouble(
+            _pressed ? 0.97 : 1.0,
+            _pressed ? 0.97 : 1.0,
+            _pressed ? 0.97 : 1.0,
+            1.0,
+          ),
         alignment: Alignment.center,
         child: widget.isLoading
             ? SizedBox(

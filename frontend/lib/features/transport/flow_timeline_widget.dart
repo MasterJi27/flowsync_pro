@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../shared/widgets/app_card.dart';
 
 /// Flow timeline widget - shows shipment progress through steps
 /// Replaces plain list with visual timeline and animations
@@ -10,12 +9,12 @@ class FlowTimelineWidget extends StatefulWidget {
   final bool isAnimated;
 
   const FlowTimelineWidget({
-    Key? key,
+    super.key,
     required this.steps,
     this.currentStepIndex,
     this.onStepTap,
     this.isAnimated = true,
-  }) : super(key: key);
+  });
 
   @override
   State<FlowTimelineWidget> createState() => _FlowTimelineWidgetState();
@@ -107,7 +106,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                           boxShadow: isCurrentStep
                               ? [
                                   BoxShadow(
-                                    color: const Color(0xFF4A90E2).withOpacity(0.3),
+                                    color: const Color(0xFF4A90E2).withValues(alpha: 0.3),
                                     blurRadius: 8,
                                   ),
                                 ]
@@ -144,7 +143,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                   ),
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),
@@ -200,7 +199,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                               boxShadow: isCurrentStep
                                   ? [
                                       BoxShadow(
-                                        color: const Color(0xFF4A90E2).withOpacity(0.3),
+                                        color: const Color(0xFF4A90E2).withValues(alpha: 0.3),
                                         blurRadius: 8,
                                       ),
                                     ]
@@ -245,23 +244,23 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: isCurrentStep
-                                  ? const Color(0xFF6DD5B2).withOpacity(0.15)
+                                  ? const Color(0xFF6DD5B2).withValues(alpha: 0.15)
                                   : (isCompleted
-                                      ? const Color(0xFF6DD5B2).withOpacity(0.08)
+                                      ? const Color(0xFF6DD5B2).withValues(alpha: 0.08)
                                       : Colors.grey[100]),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: isCurrentStep
                                     ? const Color(0xFF6DD5B2)
                                     : (isCompleted
-                                        ? const Color(0xFF6DD5B2).withOpacity(0.3)
+                                        ? const Color(0xFF6DD5B2).withValues(alpha: 0.3)
                                         : Colors.transparent),
                                 width: isCurrentStep ? 2 : 1,
                               ),
                               boxShadow: isCurrentStep
                                   ? [
                                       BoxShadow(
-                                        color: const Color(0xFF6DD5B2).withOpacity(0.2),
+                                        color: const Color(0xFF6DD5B2).withValues(alpha: 0.2),
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -299,13 +298,13 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                                   const SizedBox(height: 6),
                                   Row(
                                     children: [
-                                      const Icon(Icons.schedule, size: 12, color: Color(0xFF999)),
+                                      const Icon(Icons.schedule, size: 12, color: Color(0x000ff999)),
                                       const SizedBox(width: 4),
                                       Text(
                                         'Expected: ${step.expectedTime}',
                                         style: const TextStyle(
                                           fontSize: 11,
-                                          color: Color(0xFF999),
+                                          color: Color(0x000ff999),
                                         ),
                                       ),
                                     ],
@@ -347,7 +346,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
                 const SizedBox(height: 8),
               ],
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -374,7 +373,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFF6DD5B2).withOpacity(0.3),
+          color: const Color(0xFF6DD5B2).withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(6),
         ),
         child: const Text(
@@ -390,7 +389,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFF4A90E2).withOpacity(0.2),
+          color: const Color(0xFF4A90E2).withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(6),
         ),
         child: const Text(
@@ -406,7 +405,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
+          color: Colors.grey.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(6),
         ),
         child: const Text(
@@ -414,7 +413,7 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
           style: TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF666),
+            color: Color(0x000ff666),
           ),
         ),
       );
@@ -435,14 +434,14 @@ class _FlowTimelineWidgetState extends State<FlowTimelineWidget>
           children: [
             const Text(
               'Confidence',
-              style: TextStyle(fontSize: 10, color: Color(0xFF999)),
+              style: TextStyle(fontSize: 10, color: Color(0x000ff999)),
             ),
             Text(
               '$score%',
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF666),
+                color: Color(0x000ff666),
               ),
             ),
           ],

@@ -595,7 +595,13 @@ class _ActionChipState extends State<_ActionChip>
             ),
           ],
         ),
-        transform: Matrix4.identity()..scale(_pressed ? 0.96 : 1.0),
+        transform: Matrix4.identity()
+          ..scaleByDouble(
+            _pressed ? 0.96 : 1.0,
+            _pressed ? 0.96 : 1.0,
+            _pressed ? 0.96 : 1.0,
+            1.0,
+          ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

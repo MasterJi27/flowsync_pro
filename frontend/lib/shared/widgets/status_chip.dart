@@ -67,35 +67,35 @@ class StatusChip extends StatelessWidget {
           backgroundColor: const Color(0xFFD4EDDA),
           borderColor: const Color(0xFF6DD5B2),
           textColor: const Color(0xFF155724),
-          shadowColor: const Color(0xFF6DD5B2).withOpacity(0.2),
+          shadowColor: const Color(0xFF6DD5B2).withValues(alpha: 0.2),
         );
       case StatusChipColor.warning:
         return _ColorData(
           backgroundColor: const Color(0xFFFFF3CD),
           borderColor: const Color(0xFFFFB366),
           textColor: const Color(0xFF856404),
-          shadowColor: const Color(0xFFFFB366).withOpacity(0.2),
+          shadowColor: const Color(0xFFFFB366).withValues(alpha: 0.2),
         );
       case StatusChipColor.danger:
         return _ColorData(
           backgroundColor: const Color(0xFFF8D7DA),
           borderColor: const Color(0xFFFF6B6B),
           textColor: const Color(0xFF721C24),
-          shadowColor: const Color(0xFFFF6B6B).withOpacity(0.2),
+          shadowColor: const Color(0xFFFF6B6B).withValues(alpha: 0.2),
         );
       case StatusChipColor.info:
         return _ColorData(
           backgroundColor: const Color(0xFFD1ECF1),
           borderColor: const Color(0xFF87CEEB),
           textColor: const Color(0xFF0C5460),
-          shadowColor: const Color(0xFF87CEEB).withOpacity(0.2),
+          shadowColor: const Color(0xFF87CEEB).withValues(alpha: 0.2),
         );
       case StatusChipColor.neutral:
         return _ColorData(
           backgroundColor: const Color(0xFFE9ECEF),
           borderColor: const Color(0xFFBEC3CB),
           textColor: const Color(0xFF495057),
-          shadowColor: const Color(0xFF495057).withOpacity(0.1),
+          shadowColor: const Color(0xFF495057).withValues(alpha: 0.1),
         );
     }
   }

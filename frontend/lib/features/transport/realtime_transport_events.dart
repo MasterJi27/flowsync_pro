@@ -2,6 +2,8 @@
 /// Handles updates for transport status, timeline, and map markers
 library;
 
+import 'package:flutter/foundation.dart';
+
 class TransportRealtimeEvents {
   // Event names (synchronized with backend)
   static const String transportAssigned = 'transport:assigned';
@@ -167,35 +169,35 @@ abstract class TransportSocketHandler {
     // Example:
     // final shipmentId = data['shipmentId'];
     // ref.read(shipmentProvider(shipmentId).notifier).updateTransport(data);
-    print('Transport assigned: ${data['shipmentId']}');
+    debugPrint('Transport assigned: ${data['shipmentId']}');
   }
 
   static void _handleStatusChange(Map<String, dynamic> data) {
     // Update transport status in UI
-    print(
+    debugPrint(
         'Transport status changed: ${data['shipmentId']} - ${data['newStatus']}');
   }
 
   static void _handleLocationUpdate(Map<String, dynamic> data) {
     // Update map markers in real-time
-    print(
+    debugPrint(
         'Location update: ${data['shipmentId']} - (${data['latitude']}, ${data['longitude']})');
   }
 
   static void _handleETAUpdate(Map<String, dynamic> data) {
     // Update ETA in transport card
-    print('ETA updated: ${data['shipmentId']} - ${data['estimatedArrival']}');
+    debugPrint('ETA updated: ${data['shipmentId']} - ${data['estimatedArrival']}');
   }
 
   static void _handleDispatchRecommendation(Map<String, dynamic> data) {
     // Update dispatch advisor card
-    print(
+    debugPrint(
         'Dispatch recommendation: ${data['shipmentId']} - ${data['riskLevel']}');
   }
 
   static void _handleRiskAlert(Map<String, dynamic> data) {
     // Show risk alert in UI
-    print('Risk alert: ${data['shipmentId']} - ${data['alertType']}');
+    debugPrint('Risk alert: ${data['shipmentId']} - ${data['alertType']}');
   }
 
   /// Unregister listeners when needed (cleanup)

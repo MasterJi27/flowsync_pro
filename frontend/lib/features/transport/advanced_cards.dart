@@ -10,17 +10,16 @@ class RiskCard extends StatelessWidget {
   final VoidCallback? onAction;
 
   const RiskCard({
-    Key? key,
+    super.key,
     required this.delayMinutes,
     this.riskColor = 'yellow',
     this.message,
     this.onAction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final isHigh = riskColor == 'red';
-    final isMedium = riskColor == 'yellow';
 
     return GradientCardRed(
       padding: const EdgeInsets.all(16),
@@ -52,7 +51,7 @@ class RiskCard extends StatelessWidget {
                       'No update for $delayMinutes minutes',
                       style: const TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF666),
+                        color: Color(0x000ff666),
                       ),
                     ),
                   ],
@@ -64,7 +63,7 @@ class RiskCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.3),
+              color: Colors.white.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -122,13 +121,13 @@ class RiskCard extends StatelessWidget {
   Color _getRiskBgColor(String color) {
     switch (color) {
       case 'red':
-        return const Color(0xFFFF6B6B).withOpacity(0.2);
+        return const Color(0xFFFF6B6B).withValues(alpha: 0.2);
       case 'yellow':
-        return const Color(0xFFFFB366).withOpacity(0.2);
+        return const Color(0xFFFFB366).withValues(alpha: 0.2);
       case 'green':
-        return const Color(0xFF6DD5B2).withOpacity(0.2);
+        return const Color(0xFF6DD5B2).withValues(alpha: 0.2);
       default:
-        return const Color(0xFF87CEEB).withOpacity(0.2);
+        return const Color(0xFF87CEEB).withValues(alpha: 0.2);
     }
   }
 
@@ -153,11 +152,11 @@ class ImpactCard extends StatelessWidget {
   final String currencySymbol;
 
   const ImpactCard({
-    Key? key,
+    super.key,
     required this.estimatedDelayHours,
     required this.potentialCostImpact,
     this.currencySymbol = '₹',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +171,7 @@ class ImpactCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFB366).withOpacity(0.2),
+                  color: const Color(0xFFFFB366).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
@@ -199,7 +198,7 @@ class ImpactCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
+              color: Colors.white.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -210,7 +209,7 @@ class ImpactCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF666),
+                    color: Color(0x000ff666),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -236,7 +235,7 @@ class ImpactCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
+              color: Colors.white.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -247,7 +246,7 @@ class ImpactCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF666),
+                    color: Color(0x000ff666),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -274,10 +273,10 @@ class ImpactCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: const Color(0xFF87CEEB).withOpacity(0.15),
+              color: const Color(0xFF87CEEB).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                color: const Color(0xFF87CEEB).withOpacity(0.5),
+                color: const Color(0xFF87CEEB).withValues(alpha: 0.5),
               ),
             ),
             child: const Row(
@@ -313,14 +312,14 @@ class BestContactCard extends StatelessWidget {
   final VoidCallback? onCallContact;
 
   const BestContactCard({
-    Key? key,
+    super.key,
     required this.contactName,
     this.phone,
     this.role,
     this.trustLevel = 'medium',
     this.avgResponseTimeSeconds,
     this.onCallContact,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -335,7 +334,7 @@ class BestContactCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4A90E2).withOpacity(0.2),
+                  color: const Color(0xFF4A90E2).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
@@ -386,13 +385,13 @@ class BestContactCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.3),
+                    color: Colors.white.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -423,7 +422,7 @@ class BestContactCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFF666),
+                            color: Color(0x000ff666),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -448,7 +447,7 @@ class BestContactCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFF666),
+                            color: Color(0x000ff666),
                           ),
                         ),
                         const SizedBox(height: 4),
